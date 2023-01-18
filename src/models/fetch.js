@@ -39,7 +39,7 @@ class Fetch {
                 break;
             case 'mapbox-terrain-rgb':
                 // https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb
-                prefix = 'https://api.mapbox.com/raster/v1/mapbox.mapbox-terrain-dem-v1';
+                prefix = 'https://api.mapbox.com/v4/mapbox.terrain-rgb';
                 res = '@2x.pngraw';
                 break;
             case 'mapbox-satellite':
