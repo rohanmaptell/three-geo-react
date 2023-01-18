@@ -8,7 +8,7 @@ class Elevation {
 
         //---- find the corresponding mesh based on bbox info
 
-        console.log('meshes for ele:', meshes);
+        // console.log('meshes for ele:', meshes);
         const candidates = [];
         for (let mesh of meshes) {
             const tile = mesh.userData.threeGeo.tile;
@@ -21,18 +21,18 @@ class Elevation {
         if (candidates.length === 0) return null;
 
         const target = candidates[0];
-        console.log('target:', target);
+        // console.log('target:', target);
         // target.material.wireframe = true; // debug
 
         //---- x, y, target -> rayOriginWorld, rayDirectionWorld
 
-        console.log('x, y:', x, y); // terrain coords
+        // console.log('x, y:', x, y); // terrain coords
 
         let rayOriginWorld, rayDirectionWorld;
         { // ray origin: terrain coords -> world coords
             const vecTerrain = new THREE.Vector3(x, y, 4); // TODO z should be high enough
             const vecWorld = vecTerrain.clone().applyMatrix4(target.matrixWorld);
-            console.log('ray origin:', vecTerrain, '->', vecWorld);
+            // console.log('ray origin:', vecTerrain, '->', vecWorld);
             rayOriginWorld = vecWorld;
 
             window._scene.add( // debug viz: ray origin correspondence
@@ -41,7 +41,7 @@ class Elevation {
         { // ray direction: terrain coords -> world coords
             const vecTerrain = new THREE.Vector3(0, 0, -1);
             const vecWorld = vecTerrain.clone().applyMatrix4(target.matrixWorld);
-            console.log('ray direction:', vecTerrain, '->', vecWorld);
+            // console.log('ray direction:', vecTerrain, '->', vecWorld);
             rayDirectionWorld = vecWorld;
         }
 
@@ -49,7 +49,7 @@ class Elevation {
 
         const isect = (new Laser()).raycast(
             rayOriginWorld, rayDirectionWorld, [target]);
-        console.log('isect:', isect);
+        // console.log('isect:', isect);
 
         if (1 && isect) {
             window._scene.add( // debug viz: raycasting in world coords
@@ -75,11 +75,11 @@ class Elevation {
         const attrPos = isect.object.geometry.attributes.position;
         const triTerrain = [0, 1, 2].map(i => (new THREE.Vector3())
             .fromBufferAttribute(attrPos, indexArr[3 * faceIndex + i]));
-        console.log('isect -> triTerrain:', triTerrain);
+        // console.log('isect -> triTerrain:', triTerrain);
         window._scene.add(Utils.createLine(triTerrain)); //!!!!!!!!!
 
         const triWorld = triTerrain.map(vec => vec.applyMatrix4(target.matrixWorld));
-        console.log('triTerrain -> triWorld:', triWorld);
+        // console.log('triTerrain -> triWorld:', triWorld);
         window._scene.add(Utils.createLine(triWorld, {color: 0x00ffff})); //!!!!!!!!!
 
         const _triInfo = null; // TODO !!!!
@@ -126,7 +126,7 @@ for triInfo     <-                             triWorld,    normalWorld
 */
 
         const { pointWorld, pointTerrain } = this._isectToPoints(isect, target);
-        console.log('pointTerrain:', pointTerrain);
+        // console.log('pointTerrain:', pointTerrain);
 
         if (1) {
             window._scene.add( // debug viz: raycasting in terrain coords

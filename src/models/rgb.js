@@ -80,7 +80,7 @@ class RgbModel {
         // e.g. satellite's zoom: 14
         //      dem's zoom: 12 (=14-2)
         const zpEle = Fetch.getZoomposEle(zpCovered);
-        console.log('RgbModel: zpEle:', zpEle);
+        // console.log('RgbModel: zpEle:', zpEle);
 
         let count = 0;
         zpEle.forEach(async zoompos => {
@@ -88,7 +88,7 @@ class RgbModel {
             if (tile !== null) {
                 this.addTile(tile, zoompos, zpCovered, bbox);
             } else {
-                console.log(`fetchTile() failed for rgb dem of zp: ${zoompos} (count: ${count}/${zpEle.length})`);
+                // console.log(`fetchTile() failed for rgb dem of zp: ${zoompos} (count: ${count}/${zpEle.length})`);
             }
 
             count++;
@@ -101,7 +101,7 @@ class RgbModel {
     addTile(tile, zoomposEle, zpCovered, bbox) {
         this.dataEleCovered = this.dataEleCovered.concat(
             this._addTile(tile, zoomposEle, zpCovered, bbox));
-        console.log(`now ${this.dataEleCovered.length} satellite tiles in dataEleCovered`);
+        // console.log(`now ${this.dataEleCovered.length} satellite tiles in dataEleCovered`);
     }
 
     _addTile(pixels, zoomposEle, zpCovered, bbox) {
@@ -275,7 +275,7 @@ class RgbModel {
     build() {
         const debug = this.isDebug ? {} : undefined;
 
-        console.log('dataEleCovered:', this.dataEleCovered);
+        // console.log('dataEleCovered:', this.dataEleCovered);
 
         if (this.dataEleCovered.length === 0) {
             const meshes = [];
@@ -310,7 +310,7 @@ class RgbModel {
     }
 
     static _build(dataEle, apiSatellite, token, isNode, onSatelliteMatWrapper) {
-        console.log('apiSatellite:', apiSatellite);
+        // console.log('apiSatellite:', apiSatellite);
 
         // dataEle should be sorted so that .resolveSeams() is applied
         // in the proper order, or the results will have broken stripes
@@ -327,14 +327,14 @@ class RgbModel {
             // console.log(zoompos, arr); // a 16th of zoomposEle
             if (arr.length !== constVertices * constVertices * 3) {
                 // assumtion on the size of the arr failed...
-                console.log('woops: already seams resolved? or what..., NOP');
+                // console.log('woops: already seams resolved? or what..., NOP');
                 return;
             }
 
             // console.log('dealing with the seams of:', zoompos);
             let cSegments = this.resolveSeams(
                 arr, this.getNeighborsInfo(dataEle, dataEleIds, zoompos));
-            console.log('cSegments:', cSegments);
+            // console.log('cSegments:', cSegments);
             // w and h don't matter since position.array is being overwritten
 
             let geom = new THREE.PlaneBufferGeometry(

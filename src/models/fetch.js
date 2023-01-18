@@ -22,7 +22,7 @@ class Fetch {
                 extension = 'jpg';
                 break;
             default:
-                console.log('getUriCustom(): unsupported api:', api);
+                // console.log('getUriCustom(): unsupported api:', api);
                 return '';
         }
         return `${api}-${zoompos.join('-')}.${extension}`;
@@ -39,7 +39,7 @@ class Fetch {
                 break;
             case 'mapbox-terrain-rgb':
                 // https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb
-                prefix = 'https://api.mapbox.com/v4/mapbox.terrain-rgb';
+                prefix = 'https://api.mapbox.com/raster/v1/mapbox.mapbox-terrain-dem-v1';
                 res = '@2x.pngraw';
                 break;
             case 'mapbox-satellite':
@@ -48,7 +48,7 @@ class Fetch {
                 prefix = 'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles';
                 break;
             default:
-                console.log('getUriMapbox(): unsupported api:', api);
+                // console.log('getUriMapbox(): unsupported api:', api);
                 return '';
         }
         return `${prefix}/${zoompos.join('/')}${res}?access_token=${token}`;
@@ -102,7 +102,7 @@ class Fetch {
     }
 
     static isAjaxSuccessful(stat) {
-        console.log('stat:', stat);
+        // console.log('stat:', stat);
         // https://stackoverflow.com/questions/21756910/how-to-use-status-codes-200-404-300-how-jquery-done-and-fail-work-internally
         return stat >= 200 && stat < 300 || stat === 304;
     }
@@ -133,7 +133,7 @@ class Fetch {
         const uri = isMapbox ?
             this.getUriMapbox(token, api, zoompos) :
             this.getUriCustom(api, zoompos);
-        console.log(`${tag}: uri: ${uri}`);
+        // console.log(`${tag}: uri: ${uri}`);
 
         const future = res => {
             let ret = null;

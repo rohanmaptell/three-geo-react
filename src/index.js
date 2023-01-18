@@ -145,7 +145,7 @@ class ThreeGeo {
         const isDone = () => !isVecPending && !isRgbPending;
 
         if (isDone()) {
-            console.log('no callbacks are set');
+            // console.log('no callbacks are set');
             res(ret);
             return null;
         }
@@ -163,7 +163,7 @@ class ThreeGeo {
                 ret.rgbDem = data;
             }
             if (isDone()) {
-                console.log('all callbacks are complete');
+                // console.log('all callbacks are complete');
                 res(ret);
             }
         };
@@ -188,9 +188,9 @@ class ThreeGeo {
 
                 // ROI
                 const bbox = ThreeGeo.getBbox(origin, radius);
-                console.log('bbox:', bbox);
+                // console.log('bbox:', bbox);
                 const zpCovered = ThreeGeo.getZoomposCovered(bbox.feature, zoom);
-                console.log('(satellite-level) zpCovered:', zpCovered);
+                // console.log('(satellite-level) zpCovered:', zpCovered);
 
                 if (onRgbDem) {
                     (new RgbModel({

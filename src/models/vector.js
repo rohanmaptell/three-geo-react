@@ -31,7 +31,7 @@ class VectorModel {
     fetch(zpCovered, bbox, radius) {
         // e.g. satellite's zoom: 14; then dem's zoom: 12 (=14-2)
         const zpEle = Fetch.getZoomposEle(zpCovered);
-        console.log('VectorModel: zpEle:', zpEle);
+        // console.log('VectorModel: zpEle:', zpEle);
 
         let count = 0;
         zpEle.forEach(async zoompos => {
@@ -39,7 +39,7 @@ class VectorModel {
             if (tile !== null) {
                 this.addTile(tile, zoompos);
             } else {
-                console.log(`fetchTile() failed for vector dem of zp: ${zoompos} (count: ${count}/${zpEle.length})`);
+                // console.log(`fetchTile() failed for vector dem of zp: ${zoompos} (count: ${count}/${zpEle.length})`);
             }
 
             count++;
@@ -56,7 +56,7 @@ class VectorModel {
 
         const contour = tile.layers.contour;
         if (!contour) { // zoom <= 8
-            console.log(`no contours! (zoom=${zoompos[0]})`);
+            // console.log(`no contours! (zoom=${zoompos[0]})`);
             return;
         }
 
@@ -139,8 +139,8 @@ class VectorModel {
                     });
                 }
             } catch (error) { // on merge fail, insert the previous contour again and skip
-                console.log('merge failed at elevation '+currentElevation);
-                console.log(error.message);
+                // console.log('merge failed at elevation '+currentElevation);
+                // console.log(error.message);
             }
         }
 
@@ -150,7 +150,7 @@ class VectorModel {
                 let currContour = contours[m];
                 let prevContour = contours[m+1];
                 if (currContour.area >= maxArea && prevContour.area >= maxArea) {
-                    console.log('max area reached! ele, area:', currContour.ele, currContour.area);
+                    // console.log('max area reached! ele, area:', currContour.ele, currContour.area);
                     contours = contours.slice(m+1);
                     break;
                 }
